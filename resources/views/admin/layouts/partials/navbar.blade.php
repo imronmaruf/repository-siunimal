@@ -123,12 +123,12 @@
         <li class="nav-item dropdown has-arrow new-user-menus">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <span class="user-img">
+                    <div class="user-text">
+                        <h6>{{ Auth::user()->name }}</h6>
+                        <p class="text-muted mb-0">{{ Auth::user()->role }}</p>
+                    </div>
                     <img class="rounded-circle" src="{{ asset('admin/assets/img/profiles/avatar-01.jpg') }}"
                         width="31" alt="Soeng Souy">
-                    <div class="user-text">
-                        <h6>Soeng Souy</h6>
-                        <p class="text-muted mb-0">Administrator</p>
-                    </div>
                 </span>
             </a>
             <div class="dropdown-menu">
@@ -138,8 +138,8 @@
                             class="avatar-img rounded-circle">
                     </div>
                     <div class="user-text">
-                        <h6>Soeng Souy</h6>
-                        <p class="text-muted mb-0">Administrator</p>
+                        <h6>{{ Auth::user()->name }}</h6>
+                        <p class="text-muted mb-0">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
                 <a class="dropdown-item" href="profile.html">My Profile</a>

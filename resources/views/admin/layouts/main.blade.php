@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/icons/flags/flags.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/plugins/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
 
     @stack('css')
@@ -49,7 +50,20 @@
     <script src="{{ asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/apexchart/apexcharts.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/apexchart/chart-data.js') }}"></script>
+
+    <script src="{{ asset('admin/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/plugins/datatables/datatables.min.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
 
     @stack('js')
 </body>

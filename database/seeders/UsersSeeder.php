@@ -20,13 +20,5 @@ class UsersSeeder extends Seeder
             'status' => 'aktif',
             'password' => bcrypt('password'),
         ]);
-
-        User::create([
-            'name' => 'mahasiswa',
-            'email' => 'mahasiswa@gmail.com',
-            'role' => 'mahasiswa',
-            'status' => 'pending',
-            'password' => bcrypt('password'),
-        ]);
     }
 }

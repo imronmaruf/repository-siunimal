@@ -1,11 +1,12 @@
 <?php
-
+// RegisterController.php
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Events\UsersMahasiswaRegistered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -36,11 +37,14 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'status' => 'pending',
+            'role' => 'mahasiswa',
         ]);
     }
 
     protected function registered(Request $request, $user)
     {
+        event(new UsersMahasiswaRegistered($user));
+
         $this->guard()->logout();
         return redirect()->route('login')->with('success', 'Registrasi berhasil. Tunggu verifikasi dari admin untuk mengaktifkan akun Anda.');
     }

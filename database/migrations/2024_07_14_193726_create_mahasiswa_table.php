@@ -16,13 +16,13 @@ return new class extends Migration
             $table->foreignUuid('user_id');
             $table->string('name');
             $table->string('foto');
-            $table->integer('nim');
-            $table->integer('hp');
-            $table->integer('dosen_pembimbing_kp')->unsigned();
-            $table->integer('dosen_pembimbing_tga_1')->unsigned();
-            $table->integer('dosen_pembimbing_tga_2')->unsigned();
-            $table->integer('dosen_penguji_tga_1')->unsigned();
-            $table->integer('dosen_penguji_tga_2')->unsigned();
+            $table->integer('nim')->nullable(); // Set nullable
+            $table->integer('hp')->nullable();
+            $table->integer('dosen_pembimbing_kp')->unsigned()->nullable(); // Set nullable
+            $table->integer('dosen_pembimbing_tga_1')->unsigned()->nullable(); // Set nullable
+            $table->integer('dosen_pembimbing_tga_2')->unsigned()->nullable(); // Set nullable
+            $table->integer('dosen_penguji_tga_1')->unsigned()->nullable(); // Set nullable
+            $table->integer('dosen_penguji_tga_2')->unsigned()->nullable(); // Set nullable
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');

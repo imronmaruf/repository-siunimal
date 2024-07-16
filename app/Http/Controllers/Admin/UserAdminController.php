@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use App\Events\UsersMahasiswaRegistered;
 
 class UserAdminController extends Controller
 {
@@ -52,6 +53,8 @@ class UserAdminController extends Controller
             $dataUser->status = $data['status'];
             $dataUser->password = Hash::make($username);
             $dataUser->save();
+
+            event(new UsersMahasiswaRegistered($dataUser));
 
             DB::commit();
             Session::flash('success', 'Data berhasil disimpan');

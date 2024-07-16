@@ -9,21 +9,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         if (!Auth::check()) {
             return redirect(route('login'));
         }
+
         $user = Auth::user();
 
         if (!in_array($user->role, $roles)) {
-            return $next($request);
+            return redirect('/dashboard')->with('error', 'Anda tidak memiliki akses untuk halaman ini.');
         }
-        return redirect('/dashboard')->with('error', 'Anda tidak memiliki akses untuk halaman ini.');
+
+        if ($user->status !== 'aktif') {
+            Auth::logout();
+            return redirect(route('login'))->with('error', 'Akun Anda belum aktif atau telah dinonaktifkan.');
+        }
+
+        return $next($request);
     }
 }

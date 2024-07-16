@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'mahasiswa']);
+            $table->enum('role', ['admin', 'mahasiswa'])->default('mahasiswa');
+            $table->enum('status', ['pending', 'aktif', 'non-aktif'])->default('pending');
             $table->string('password');
             $table->timestamps();
         });

@@ -15,17 +15,29 @@ class UserAdminController extends Controller
     {
         $dataUser = User::all();
         $roles = User::select('role')->distinct()->get();
-        return view('admin.data-user.index', compact('dataUser', 'roles'));
+        // $statuses = User::select('status')->distinct()->get();
+        $statuses = ['pending', 'aktif', 'non-aktif'];
+        return view('admin.data-user.index', compact('dataUser', 'roles', 'statuses'));
     }
 
 
     public  function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|min:3|unique:users',
-            'email' => 'required|email|unique:users',
-            'role' => 'required',
-        ]);
+        $data = $request->validate(
+            [
+                'name' => 'required|min:3',
+                'email' => 'required|email|unique:users',
+                'role' => 'required',
+                'status' => 'required',
+            ],
+            [
+                'name.required' => 'Nama harus diisi',
+                'email.required' => 'Email harus diisi',
+                'email.unique' => 'Email sudah terdaftar',
+                'role.required' => 'Role harus dipilih',
+                'status.required' => 'Status harus dipilih',
+            ]
+        );
 
         // Memisahkan bagian username dari email
         $emailToPass = explode('@', $data['email']);
@@ -37,6 +49,7 @@ class UserAdminController extends Controller
             $dataUser->name = $data['name'];
             $dataUser->email = $data['email'];
             $dataUser->role = $data['role'];
+            $dataUser->status = $data['status'];
             $dataUser->password = Hash::make($username);
             $dataUser->save();
 
@@ -54,7 +67,8 @@ class UserAdminController extends Controller
     {
         $dataUser = User::findOrFail($id);
         $roles = User::select('role')->distinct()->get();
-        return response()->json(['dataUser' => $dataUser, 'roles' => $roles], 200);
+        $statuses = User::select('status')->distinct()->get();
+        return response()->json(['dataUser' => $dataUser, 'roles' => $roles, 'statuses' => $statuses], 200);
     }
 
 
@@ -62,16 +76,18 @@ class UserAdminController extends Controller
     {
         $data = $request->validate(
             [
-                'name' => 'required|min:3|unique:users,name,' . $id,
+                'name' => 'required|min:3',
                 'email' => 'required|email|unique:users,email,' . $id,
                 'role' => 'required',
+                'status' => 'required',
             ],
             [
                 'name.required' => 'Nama harus diisi',
                 'name.unique' => 'Nama sudah terdaftar',
                 'email.required' => 'Email harus diisi',
                 'email.unique' => 'Email sudah terdaftar',
-                'role.required' => 'Role harus diisi',
+                'role.required' => 'Role harus dipilih',
+                'status.required' => 'Status harus dipilih',
             ]
         );
 
@@ -81,6 +97,7 @@ class UserAdminController extends Controller
             $dataUser->name = $data['name'];
             $dataUser->email = $data['email'];
             $dataUser->role = $data['role'];
+            $dataUser->status = $data['status'];
             $dataUser->save();
             DB::commit();
             Session::flash('success', 'Data Berhasil Diubah');

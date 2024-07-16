@@ -2,7 +2,7 @@
 
 
 @push('title')
-    Data User
+    Data Dosen
 @endpush
 
 @push('css')
@@ -20,7 +20,7 @@
                     <div class="page-sub-header">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                            <li class="breadcrumb-item active">Data User</li>
+                            <li class="breadcrumb-item active">Data Dosen</li>
                         </ul>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="page-title">Data User</h3>
+                                <h3 class="page-title">Data Dosen</h3>
                             </div>
                             <div class="col-auto text-end float-end ms-auto download-grp">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#modalAdd"
@@ -77,30 +77,24 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Nama</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Status</th>
+                                                    <th>NIP</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($dataUser as $data)
+                                                @foreach ($dataDosen as $data)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $data->name }}</td>
-                                                        <td>{{ $data->email }}</td>
-                                                        <td>{{ $data->role }}</td>
-                                                        <td>{{ $data->status }}</td>
+                                                        <td>{{ $data->nip }}</td>
                                                         <td>
                                                             <div class="d-flex align-items-center gap-2">
                                                                 <button type="button" data-bs-toggle="modal"
                                                                     data-bs-target="#modalEdit{{ $data->id }}"
                                                                     class="btn btn-sm btn-warning text-white"><i
                                                                         class="feather-edit text-white"></i> Edit</button>
-                                                                {{-- <a href="#"
-                                                                    class="btn btn-sm btn-success text-white"><i
-                                                                        class="feather-eye text-white"></i> Detail</a> --}}
-                                                                <form action="{{ route('data-user.destroy', $data->id) }}"
+
+                                                                <form action="{{ route('data-dosen.destroy', $data->id) }}"
                                                                     method="POST" id="deleteForm{{ $data->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -121,9 +115,7 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Nama</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Status</th>
+                                                    <th>Nip</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -138,7 +130,7 @@
         </div>
     </div>
 
-    @include('admin.data-user.modal')
+    @include('admin.data-dosen.modal')
 @endsection
 @push('js')
     <script>

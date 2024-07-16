@@ -24,6 +24,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('active-user', function ($user) {
+            return $user->status === 'aktif';
+        });
         Gate::define('all-access', function ($user) {
             return in_array($user->role, ['admin', 'mahasiswa']);
         });

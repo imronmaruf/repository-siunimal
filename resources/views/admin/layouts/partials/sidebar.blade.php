@@ -20,7 +20,8 @@
                     </li>
 
                     <li>
-                        <a href="holiday.html"><i class="fas fa-chalkboard-teacher"></i> <span>Dosen</span></a>
+                        <a href="{{ route('data-dosen.index') }}"><i class="fas fa-chalkboard-teacher"></i>
+                            <span>Dosen</span></a>
                     </li>
                 @endcan
 

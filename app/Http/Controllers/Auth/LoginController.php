@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth; // Pastikan Anda mengimpor Auth dengan benar
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +38,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    // Fungsi jika user memiliki status pending maka tidak bisa login
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->status === 'pending') {
+            Auth::logout();
+            return redirect(route('login'))->with('error', 'Akun Anda belum aktif. Silakan hubungi admin atau tunggu konfirmasi dari admin.');
+        }
+        if ($user->status === 'non-aktif') {
+            Auth::logout();
+            return redirect(route('login'))->with('error', 'Akun Anda  non-aktif. Silakan hubungi admin aktivasi akun kembali.');
+        }
+
+        return redirect()->intended($this->redirectPath());
     }
 }

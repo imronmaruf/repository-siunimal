@@ -17,6 +17,7 @@ class UsersSeeder extends Seeder
             'name' => 'Imron Maruf Fajaruddin',
             'email' => 'imronfajar@gmail.com',
             'role' => 'admin',
+            'status' => 'aktif',
             'password' => bcrypt('password'),
         ]);
 
@@ -24,6 +25,7 @@ class UsersSeeder extends Seeder
             'name' => 'mahasiswa',
             'email' => 'mahasiswa@gmail.com',
             'role' => 'mahasiswa',
+            'status' => 'pending',
             'password' => bcrypt('password'),
         ]);
     }

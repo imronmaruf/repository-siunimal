@@ -2,7 +2,7 @@
 
 
 @push('title')
-    Data User
+    Data Mahasiswa
 @endpush
 
 @push('css')
@@ -20,7 +20,7 @@
                     <div class="page-sub-header">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                            <li class="breadcrumb-item active">Data User</li>
+                            <li class="breadcrumb-item active">Data Mahasiswa</li>
                         </ul>
                     </div>
                 </div>
@@ -33,13 +33,21 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="page-title">Data User</h3>
+                                <h3 class="page-title">Data Mahasiswa</h3>
+                                <p class="card-text"> -
+                                    Untuk menambahkan <code>Data Mahasiswa</code> silahkan tambahkan terlebih dahulu
+                                    <code>Data User</code>.
+                                    <br> - Setelah <code>Data User</code> ditambahkan atau Mahasiswa sendiri yang melakukan
+                                    <code>Registrasi</code> maka data otomatis terisi di
+                                    <code>Data Mahasiswa</code>
+                                    </br>
+                                </p>
                             </div>
-                            <div class="col-auto text-end float-end ms-auto download-grp">
+                            {{-- <div class="col-auto text-end float-end ms-auto download-grp">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#modalAdd"
                                     class="btn btn-outline-primary me-2"><i class="fas fa-plus"></i>
                                     Tambah</button>
-                            </div>
+                            </div> --}}
                         </div>
 
                         @if ($errors->any())
@@ -77,35 +85,49 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Nama</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Status</th>
+                                                    <th>Foto</th>
+                                                    <th>NIM</th>
+                                                    <th>Hp.</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($dataUser as $data)
+                                                @foreach ($dataMhs as $data)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $data->name }}</td>
-                                                        <td>{{ $data->email }}</td>
-                                                        <td>{{ $data->role }}</td>
                                                         <td>
-                                                            <span
-                                                                class="badge {{ $data->status == 'aktif' ? 'bg-success' : ($data->status == 'pending' ? 'bg-secondary' : ($data->status == 'non-aktif' ? 'bg-danger' : 'bg-danger')) }}">
-                                                                {{ $data->status }}
-                                                            </span>
+                                                            <img src="{{ asset('admin/img/foto/' . $data->foto) }}"
+                                                                alt="image" class="img-fluid avatar-xl rounded">
                                                         </td>
+                                                        @if ($data->nim)
+                                                            <td>{{ $data->nim }}</td>
+                                                        @else
+                                                            <td>
+                                                                <span class="badge badge-soft-danger">Mahasiswa Belum
+                                                                    Mengupdate Data.</span>
+                                                            </td>
+                                                        @endif
+
+                                                        @if ($data->hp)
+                                                            <td>{{ $data->hp }}</td>
+                                                        @else
+                                                            <td>
+                                                                <span class="badge badge-soft-danger">Mahasiswa Belum
+                                                                    Mengupdate Data.</span>
+                                                            </td>
+                                                        @endif
+
                                                         <td>
                                                             <div class="d-flex align-items-center gap-2">
-                                                                <button type="button" data-bs-toggle="modal"
-                                                                    data-bs-target="#modalEdit{{ $data->id }}"
-                                                                    class="btn btn-sm btn-warning text-white"><i
-                                                                        class="feather-edit text-white"></i> Edit</button>
-                                                                {{-- <a href="#"
-                                                                    class="btn btn-sm btn-success text-white"><i
-                                                                        class="feather-eye text-white"></i> Detail</a> --}}
-                                                                <form action="{{ route('data-user.destroy', $data->id) }}"
+                                                                <a href="{{ route('data-mahasiswa.edit', $data->id) }}"
+                                                                    class="btn btn-sm btn-warning text-white">
+                                                                    <i class="feather-edit text-white"></i> Edit</a>
+                                                                <a href="{{ route('data-mahasiswa.show', $data->id) }}"
+                                                                    class="btn btn-sm btn-success text-white">
+                                                                    <i class="feather-eye text-white"></i> Detail</a>
+                                                                <form
+                                                                    action="{{ route('data-mahasiswa.destroy', $data->id) }}"
                                                                     method="POST" id="deleteForm{{ $data->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -126,9 +148,9 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Nama</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Status</th>
+                                                    <th>Foto</th>
+                                                    <th>NIM</th>
+                                                    <th>Hp.</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -143,7 +165,7 @@
         </div>
     </div>
 
-    @include('admin.data-user.modal')
+    {{-- @include('admin.data-dosen.modal') --}}
 @endsection
 @push('js')
     <script>

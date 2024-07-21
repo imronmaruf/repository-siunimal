@@ -16,7 +16,8 @@
 
                 @can('admin-only')
                     <li>
-                        <a href="holiday.html"><i class="fas fa-graduation-cap"></i> <span>Mahasiswa</span></a>
+                        <a href="{{ route('data-mahasiswa.index') }}"><i class="fas fa-graduation-cap"></i>
+                            <span>Mahasiswa</span></a>
                     </li>
 
                     <li>
@@ -29,7 +30,7 @@
                     <a href="#"><i class="fa fa-database"></i> <span> Repository</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="teachers.html">Kerja Praktek</a></li>
+                        <li><a href="{{ route('data-kp.index') }}">Kerja Praktek</a></li>
                         <li><a href="teacher-details.html">Tugas Akhir</a></li>
                     </ul>
                 </li>

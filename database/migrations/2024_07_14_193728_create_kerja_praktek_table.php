@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('dosen_pembimbing')->references('id')->on('dosen')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('dosen_pembimbing')->references('dosen_pembimbing_kp')->on('mahasiswa')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

@@ -43,6 +43,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+        // assign data regis ke tabel mahasiswa
         event(new UsersMahasiswaRegistered($user));
 
         $this->guard()->logout();

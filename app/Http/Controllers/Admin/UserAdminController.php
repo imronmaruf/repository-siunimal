@@ -16,8 +16,11 @@ class UserAdminController extends Controller
     {
         $dataUser = User::all();
         $roles = User::select('role')->distinct()->get();
-        // $statuses = User::select('status')->distinct()->get();
         $statuses = ['pending', 'aktif', 'non-aktif'];
+
+        // Tambahkan 'mahasiswa' ke dalam opsi roles jika belum ada
+        $roles = $roles->pluck('role')->prepend('mahasiswa')->unique();
+
         return view('admin.data-user.index', compact('dataUser', 'roles', 'statuses'));
     }
 
@@ -54,6 +57,7 @@ class UserAdminController extends Controller
             $dataUser->password = Hash::make($username);
             $dataUser->save();
 
+            // assign data regis ke tabel mahasiswa
             event(new UsersMahasiswaRegistered($dataUser));
 
             DB::commit();

@@ -40,9 +40,9 @@
                                 <select class="form-control form-select @error('role') is-invalid @enderror"
                                     name="role" id="role">
                                     <option value="">-- Pilih Role --</option>
-                                    @foreach ($roles as $data)
-                                        <option value="{{ $data->role }}"
-                                            {{ old('role') == $data->role ? 'selected' : '' }}>{{ $data->role }}
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role }}"
+                                            {{ old('role') == $role ? 'selected' : '' }}>{{ $role }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -131,9 +131,9 @@
                                         name="role" id="role">
                                         <option value="">-- Pilih Role --</option>
                                         @foreach ($roles as $role)
-                                            <option value="{{ $role->role }}"
-                                                {{ old('role', $user->role) == $role->role ? 'selected' : '' }}>
-                                                {{ $role->role }}
+                                            <option value="{{ $role }}"
+                                                {{ old('role', $user->role) == $role ? 'selected' : '' }}>
+                                                {{ $role }}
                                             </option>
                                         @endforeach
                                     </select>

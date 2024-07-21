@@ -31,6 +31,19 @@ class KerjaPraktekController extends Controller
         return view('admin.data-kp.index', compact('dataKp'));
     }
 
+
+    public function show($id)
+    {
+        $dataKp = KerjaPraktek::find($id);
+
+        if (Gate::denies('admin-only') && $dataKp->mahasiswa->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $dataKp = KerjaPraktek::with(['mahasiswa', 'dosenPembimbing'])->findOrFail($id);
+        return view('admin.data-kp.detail', compact('dataKp'));
+    }
+
     public function create()
     {
         if (Gate::allows('admin-only')) {

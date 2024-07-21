@@ -7,7 +7,7 @@
                 </li>
 
                 <li class="active">
-                    <a href="holiday.html"><i class="feather-grid"></i> <span>Dashboard</span></a>
+                    <a href="/dashboard"><i class="feather-grid"></i> <span>Dashboard</span></a>
                 </li>
 
                 <li class="menu-title">
@@ -31,7 +31,7 @@
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{ route('data-kp.index') }}">Kerja Praktek</a></li>
-                        <li><a href="teacher-details.html">Tugas Akhir</a></li>
+                        <li><a href="{{ route('data-tga.index') }}">Tugas Akhir</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">

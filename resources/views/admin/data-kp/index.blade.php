@@ -262,7 +262,7 @@
                                             @if ($firstData->link_github)
                                                 <a href="{{ $firstData->link_github }}" target="__blank">GitHub</a>
                                             @else
-                                                <span class="badge bg-danger">Belum Upload</span>
+                                                <span class="badge bg-danger">Belum Ditambahkan</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -272,7 +272,7 @@
                                             @if ($firstData->link_gdrive)
                                                 <a href="{{ $firstData->link_gdrive }}" target="__blank">GDrive</a>
                                             @else
-                                                <span class="badge bg-danger">Belum Upload</span>
+                                                <span class="badge bg-danger">Belum Ditambahkan</span>
                                             @endif
                                         </td>
                                     </tr>

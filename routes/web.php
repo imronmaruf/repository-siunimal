@@ -1,13 +1,15 @@
 <?php
 
+use App\Models\TugasAkhir;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KerjaPraktekController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Landing\LandingController;
+use App\Http\Controllers\Admin\TugasAkhirController;
+use App\Http\Controllers\Admin\KerjaPraktekController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,5 +70,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/edit/{id}', [KerjaPraktekController::class, 'edit'])->name('data-kp.edit');
         Route::put('/update/{id}', [KerjaPraktekController::class, 'update'])->name('data-kp.update');
         Route::delete('/destroy/{id}', [KerjaPraktekController::class, 'destroy'])->name('data-kp.destroy');
+    });
+
+    Route::prefix('data-tga')->middleware('can:all-access')->group(function () {
+        Route::get('/', [TugasAkhirController::class, 'index'])->name('data-tga.index');
+        Route::get('/show/{id}', [TugasAkhirController::class, 'show'])->name('data-tga.show');
+        Route::post('/store', [TugasAkhirController::class, 'store'])->name('data-tga.store');
+        Route::get('/create', [TugasAkhirController::class, 'create'])->name('data-tga.create');
+        Route::get('/edit/{id}', [TugasAkhirController::class, 'edit'])->name('data-tga.edit');
+        Route::put('/update/{id}', [TugasAkhirController::class, 'update'])->name('data-tga.update');
+        Route::delete('/destroy/{id}', [TugasAkhirController::class, 'destroy'])->name('data-tga.destroy');
     });
 });

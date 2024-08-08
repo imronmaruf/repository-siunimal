@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Landing\LandingController;
 use App\Http\Controllers\Admin\TugasAkhirController;
 use App\Http\Controllers\Admin\KerjaPraktekController;
+use App\Http\Controllers\Admin\ProfileSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +81,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/edit/{id}', [TugasAkhirController::class, 'edit'])->name('data-tga.edit');
         Route::put('/update/{id}', [TugasAkhirController::class, 'update'])->name('data-tga.update');
         Route::delete('/destroy/{id}', [TugasAkhirController::class, 'destroy'])->name('data-tga.destroy');
+    });
+
+    Route::prefix('profile-setting')->middleware('can:all-access')->group(function () {
+        Route::get('/', [ProfileSettingController::class, 'index'])->name('profile-setting.index');
+        Route::put('/update/{id}', [ProfileSettingController::class, 'update'])->name('profile-setting.update');
+        Route::post('/profile-setting/update-password', [ProfileSettingController::class, 'updatePassword'])->name('profile-setting.update-password');
     });
 });

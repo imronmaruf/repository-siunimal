@@ -39,11 +39,6 @@
                                     </br>
                                 </p>
                             </div>
-                            {{-- <div class="col-auto text-end float-end ms-auto download-grp">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalAdd"
-                                    class="btn btn-outline-primary me-2"><i class="fas fa-plus"></i>
-                                    Tambah</button>
-                            </div> --}}
                         </div>
 
                         @if ($errors->any())

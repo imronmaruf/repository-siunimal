@@ -2,10 +2,10 @@
 
     <div class="header-left">
         <a href="index.html" class="logo">
-            <img src="{{ asset('admin/assets/img/logo.png') }}" alt="Logo">
+            <img src="{{ asset('admin/assets/img/logo.png') }}" alt="Logo" width="300" height="50">
         </a>
         <a href="index.html" class="logo logo-small">
-            <img src="{{ asset('admin/assets/img/logo-small.png') }}" alt="Logo" width="30" height="30">
+            <img src="{{ asset('admin/assets/img/fav.png') }}" alt="Logo" width="30" height="30">
         </a>
     </div>
     <div class="menu-toggle">
@@ -26,7 +26,7 @@
 
     <ul class="nav user-menu">
 
-        <li class="nav-item dropdown noti-dropdown me-2">
+        {{-- <li class="nav-item dropdown noti-dropdown me-2">
             <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
                 <img src="assets/img/icons/header-icon-05.svg" alt="">
             </a>
@@ -112,7 +112,7 @@
                     <a href="#">View all Notifications</a>
                 </div>
             </div>
-        </li>
+        </li> --}}
 
         <li class="nav-item zoom-screen me-2">
             <a href="#" class="nav-link header-nav-list win-maximize">
@@ -127,22 +127,34 @@
                         <h6>{{ Auth::user()->name }}</h6>
                         <p class="text-muted mb-0">{{ Auth::user()->role }}</p>
                     </div>
-                    <img class="rounded-circle" src="{{ asset('admin/assets/img/profiles/avatar-01.jpg') }}"
-                        width="31" alt="Soeng Souy">
+                    @if (Auth::check() && Auth::user()->mahasiswa)
+                        <img src="{{ asset('admin/img/foto/' . Auth::user()->mahasiswa->foto) }}" alt="Foto"
+                            width="31" class="rounded-circle">
+                    @else
+                        <img class="rounded-circle" alt="User Image" src="{{ asset('admin/assets/img/fav.png') }}"
+                            width="31">
+                    @endif
+                    {{-- <img class="rounded-circle" src="{{ asset('admin/assets/img/profiles/avatar-01.jpg') }}"
+                        width="31" alt="Soeng Souy"> --}}
                 </span>
             </a>
             <div class="dropdown-menu">
                 <div class="user-header">
                     <div class="avatar avatar-sm">
-                        <img src="assets/img/profiles/avatar-01.jpg" alt="User Image"
-                            class="avatar-img rounded-circle">
+                        @if (Auth::check() && Auth::user()->mahasiswa)
+                            <img src="{{ asset('admin/img/foto/' . Auth::user()->mahasiswa->foto) }}" alt="Foto"
+                                class="rounded-circle">
+                        @else
+                            <img class="rounded-circle" alt="User Image" src="{{ asset('admin/assets/img/fav.png') }}">
+                        @endif
+                        {{-- <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle"> --}}
                     </div>
                     <div class="user-text">
                         <h6>{{ Auth::user()->name }}</h6>
                         <p class="text-muted mb-0">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
-                <a class="dropdown-item" href="profile.html">My Profile</a>
+                <a class="dropdown-item" href="{{ route('profile-setting.index') }}">Profil Saya</a>
                 <a class="dropdown-item" href="inbox.html">Inbox</a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();

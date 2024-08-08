@@ -47,7 +47,7 @@ class MahasiswaController extends Controller
             'dosen_penguji_tga_2' => 'nullable',
         ]);
 
-        // Temukan instansi yang akan diperbarui
+        // Temukan data mahasiswa yang akan diperbarui
         $mahasiswa = Mahasiswa::findOrFail($id);
         $fotoLama = $mahasiswa->foto;
         $namaMahasiswa = $mahasiswa->name;
@@ -55,7 +55,7 @@ class MahasiswaController extends Controller
         try {
             DB::beginTransaction();
 
-            // Update data instansi
+            // Update data mahasiswa
             $mahasiswa->name = $data['name'];
             $mahasiswa->nim = $data['nim'];
             $mahasiswa->hp = $data['hp'];
@@ -76,11 +76,13 @@ class MahasiswaController extends Controller
                 $mahasiswa->foto = basename($file_url);
             }
 
-            // Simpan data instansi yang telah diperbarui
+            // Simpan data mahasiswa yang telah diperbarui
             $mahasiswa->save();
 
-            // Panggil event MahasiswaUpdated
-            event(new DosenMahasiswaUpdated($mahasiswa));
+            // Update data pada tabel users yang terkait
+            $mahasiswa->user()->update([
+                'name' => $mahasiswa->name,
+            ]);
 
             DB::commit();
             return redirect()->route('data-mahasiswa.index')->with('success', 'Data berhasil diupdate');
@@ -89,6 +91,7 @@ class MahasiswaController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 
     public function destroy($id)
     {

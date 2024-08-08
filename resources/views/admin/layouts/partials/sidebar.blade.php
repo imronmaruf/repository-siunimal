@@ -45,7 +45,7 @@
                 @endcan
 
                 <li>
-                    <a href="holiday.html"><i class="fas fa-cogs"></i> <span>Profil dan
+                    <a href="{{ route('profile-setting.index') }}"><i class="fas fa-cogs"></i> <span>Profil dan
                             Akun</span></a>
                 </li>
 
